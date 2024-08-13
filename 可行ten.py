@@ -166,8 +166,12 @@ def discriminator_loss(disc_real_output, disc_generated_output):
     total_disc_loss = real_loss + generated_loss
     return total_disc_loss
 
-generator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
-discriminator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
+#generator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
+#discriminator_optimizer = tf.keras.optimizers.Adam(2e-4, beta_1=0.5)
+
+#这里的优化器 我改了一下 你可以根据loss来试一下不同的优化器，loss持续下降就说明好事 就是轮数不够，如果loss一直忽高忽低就是优化的不够
+generator_optimizer = tf.keras.optimizers.SGD(0.01, momentum=0.9)
+discriminator_optimizer = tf.keras.optimizers.SGD(0.01, momentum=0.9)
 
 @tf.function
 def train_step(input_image, target, epoch):
